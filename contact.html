@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — [Your Name]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F4F4;
+    --card:#FFFFFF;
+    --card-border:rgba(35,29,29,0.10);
+    --text:#231D1D;
+    --text-dim:#6E5E5E;
+    --text-mute:#7B8285;
+    --sage:#445B4B;
+    --sage-deep:#27372C;
+    --pink:#893E5C;
+    --pink-deep:#572439;
+    --blue:#2F4E62;
+    --line:rgba(35,29,29,0.09);
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  .site-bg{
+    position:fixed; inset:0; z-index:-1;
+    background-image:url('assets/topo-bg.png');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    opacity:0.09;
+    pointer-events:none;
+  }
+
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,244,244,0.88); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px; max-width:1080px; margin:0 auto;
+  }
+  .wordmark{
+    font-family:'Fraunces',serif; font-weight:500; font-size:18px; letter-spacing:0.01em;
+    text-decoration:none; color:var(--text);
+  }
+  .nav-links{ display:flex; gap:26px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    font-size:14px; text-decoration:none; color:var(--text-dim);
+    position:relative; padding-bottom:3px; transition:color .25s ease;
+  }
+  .nav-links a.active{ color:var(--sage); }
+  .nav-links a:hover{ color:var(--sage); }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--sage); transition:width .3s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  @media (max-width:640px){ .nav-links{ gap:16px; } }
+
+  .page-head{ padding:80px 24px 50px; max-width:1080px; margin:0 auto; }
+  .section-eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--sage); margin:0 0 10px;
+  }
+  .page-title{ font-family:'Fraunces',serif; font-weight:500; font-size:clamp(28px,4.2vw,40px); margin:0 0 14px; }
+  .page-sub{ color:var(--text-dim); font-size:15px; line-height:1.6; margin:0; max-width:60ch; }
+
+  .contact-section{ padding:0 0 70px; }
+  .contact-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px; }
+  .contact-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:14px;
+    padding:26px 24px; text-decoration:none; color:var(--text);
+    display:flex; flex-direction:column; gap:8px;
+    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+  .contact-card:hover{ transform:translateY(-4px); border-color:rgba(68,91,75,0.35); box-shadow:0 10px 26px rgba(35,29,29,0.07); }
+  .contact-label{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--pink);
+  }
+  .contact-value{ font-family:'Fraunces',serif; font-weight:500; font-size:19px; }
+  .contact-hint{ font-size:13px; color:var(--text-dim); }
+
+  .resume-section{ padding:0 0 100px; }
+  .resume-card{
+    background:var(--card); border:1px solid var(--card-border); border-radius:16px;
+    padding:40px; text-align:center;
+    box-shadow:0 2px 14px rgba(35,29,29,0.04);
+  }
+  .resume-card h2{ font-family:'Fraunces',serif; font-weight:500; font-size:22px; margin:0 0 10px; }
+  .resume-card p{ font-size:14px; color:var(--text-dim); line-height:1.6; max-width:48ch; margin:0 auto 24px; }
+  .btn{
+    font-size:14px; font-weight:500; text-decoration:none; padding:12px 26px;
+    border-radius:30px; transition:transform .25s ease, background .25s ease;
+    display:inline-block;
+  }
+  .btn-primary{ background:var(--sage); color:#FFFFFF; }
+  .btn-primary:hover{ transform:translateY(-2px); background:var(--sage-deep); }
+
+  footer{ border-top:1px solid var(--line); padding:36px 0; text-align:center; font-size:13px; color:var(--text-mute); }
+  footer a{ color:var(--sage); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="site-bg" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="wordmark">[Your Name]</a>
+    <ul class="nav-links">
+      <li><a href="index.html#case-studies">Case Studies</a></li>
+      <li><a href="work-ex.html">Work Ex</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-head">
+  <p class="section-eyebrow">Get in touch</p>
+  <h1 class="page-title">Let's connect</h1>
+  <p class="page-sub">Reach out directly, or find me on LinkedIn and Medium.</p>
+</div>
+
+<section class="contact-section">
+  <div class="wrap">
+    <div class="contact-grid">
+      <a href="mailto:srinidhi103@gmail.com" class="contact-card">
+        <span class="contact-label">Email</span>
+        <span class="contact-value">srinidhi103@gmail.com</span>
+        <span class="contact-hint">Best for anything work-related →</span>
+      </a>
+      <a href="https://www.linkedin.com/in/srinidhi-s-4172901b8/" target="_blank" rel="noopener" class="contact-card">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value">[Your Name]</span>
+        <span class="contact-hint">Career history, connections →</span>
+      </a>
+      <a href="https://medium.com/@srinidhi103_33289" target="_blank" rel="noopener" class="contact-card">
+        <span class="contact-label">Medium</span>
+        <span class="contact-value">@srinidhi103_33289</span>
+        <span class="contact-hint">Writing, outside of work →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="resume-section">
+  <div class="wrap">
+    <div class="resume-card">
+      <h2>Here for a role?</h2>
+      <p>If you're a recruiter or hiring manager, here's a quick-reference resume alongside everything on this site.</p>
+      <a href="assets/resume.pdf" download class="btn btn-primary">Download resume (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Say hi — <a href="mailto:srinidhi103@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/srinidhi-s-4172901b8/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://medium.com/@srinidhi103_33289" target="_blank" rel="noopener">Medium</a>
+  </div>
+</footer>
+
+</body>
+</html>

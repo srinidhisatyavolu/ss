@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Ex — Srinidhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F4F4;
+    --card:#FFFFFF;
+    --card-border:rgba(35,29,29,0.10);
+    --text:#231D1D;
+    --text-dim:#6E5E5E;
+    --text-mute:#7B8285;
+    --sage:#445B4B;
+    --sage-deep:#27372C;
+    --pink:#893E5C;
+    --pink-deep:#572439;
+    --blue:#2F4E62;
+    --line:rgba(35,29,29,0.09);
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  .site-bg{
+    position:fixed; inset:0; z-index:-1;
+    background-image:url('assets/topo-bg.png');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    opacity:0.09;
+    pointer-events:none;
+  }
+
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,244,244,0.88); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px; max-width:1080px; margin:0 auto;
+  }
+  .wordmark{
+    font-family:'Fraunces',serif; font-weight:500; font-size:18px; letter-spacing:0.01em;
+    text-decoration:none; color:var(--text);
+  }
+  .nav-links{ display:flex; gap:26px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    font-size:14px; text-decoration:none; color:var(--text-dim);
+    position:relative; padding-bottom:3px; transition:color .25s ease;
+  }
+  .nav-links a.active{ color:var(--sage); }
+  .nav-links a:hover{ color:var(--sage); }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--sage); transition:width .3s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  @media (max-width:640px){ .nav-links{ gap:16px; } }
+
+  .page-head{ padding:80px 24px 20px; max-width:1080px; margin:0 auto; }
+  .section-eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--sage); margin:0 0 10px;
+  }
+  .page-title{ font-family:'Fraunces',serif; font-weight:500; font-size:clamp(28px,4.2vw,40px); margin:0 0 14px; }
+  .page-sub{ color:var(--text-dim); font-size:15px; line-height:1.6; margin:0; max-width:60ch; }
+
+  .route-section{ padding:70px 0 100px; }
+  .route{ position:relative; }
+  .route-svg{ position:absolute; top:0; left:0; z-index:0; pointer-events:none; overflow:visible; }
+  .route-svg path{ fill:none; }
+  .path-bg{ stroke:var(--line); stroke-width:1.5; }
+  .path-fg{ stroke:var(--sage); stroke-width:1.5; opacity:0.75; transition:stroke-dashoffset 1.1s cubic-bezier(.2,.7,.2,1); }
+
+  .stop{
+    position:relative; z-index:1;
+    display:grid; grid-template-columns:1fr 40px 1fr; align-items:start;
+    margin-bottom:80px;
+    opacity:0; transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .stop.visible{ opacity:1; transform:translateY(0); }
+  .stop:last-child{ margin-bottom:0; }
+  .pin-col{ display:flex; justify-content:center; padding-top:6px; }
+  .pin{
+    width:14px; height:14px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--text-mute);
+    transition:border-color .5s ease, background .5s ease, box-shadow .5s ease;
+  }
+  .stop.visible .pin{ border-color:var(--sage); background:var(--sage); box-shadow:0 0 0 6px rgba(68,91,75,0.14); }
+  .stop.origin .pin{ width:18px; height:18px; }
+  .stop.origin.visible .pin{ box-shadow:0 0 0 5px rgba(68,91,75,0.12), 0 0 0 9px rgba(68,91,75,0.07); }
+
+  .stop-card{ background:var(--card); border:1px solid var(--card-border); border-radius:10px; padding:20px 22px; box-shadow:0 2px 14px rgba(35,29,29,0.04); }
+  .stop.left .stop-card{ grid-column:1; margin-right:16px; text-align:right; }
+  .stop.right .stop-card{ grid-column:3; margin-left:16px; }
+  .stop.left .pin-col, .stop.right .pin-col{ grid-column:2; }
+
+  .ref{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.05em;
+    color:var(--pink); background:rgba(137,62,92,0.10);
+    display:inline-block; padding:3px 8px; border-radius:4px; margin-bottom:10px;
+  }
+  .stop-title{ font-family:'Fraunces',serif; font-weight:500; font-size:19px; margin:0 0 6px; color:var(--text); }
+  .stop-place{ font-size:12px; color:var(--text-dim); margin:0 0 12px; }
+  .stop-desc{ font-size:14px; line-height:1.6; color:var(--text-dim); margin:0 0 14px; }
+  .tags{ display:flex; gap:8px; flex-wrap:wrap; }
+  .stop.left .tags{ justify-content:flex-end; }
+  .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--sage);
+    border:1px solid rgba(68,91,75,0.3); padding:3px 8px; border-radius:20px;
+  }
+
+  footer{ border-top:1px solid var(--line); padding:36px 0; text-align:center; font-size:13px; color:var(--text-mute); }
+  footer a{ color:var(--sage); text-decoration:none; }
+
+  @media (max-width:620px){
+    .stop{ grid-template-columns:32px 1fr; margin-bottom:56px; }
+    .stop.left .stop-card, .stop.right .stop-card{ grid-column:2; margin:0; text-align:left; }
+    .stop.left .pin-col, .stop.right .pin-col{ grid-column:1; }
+    .stop.left .tags{ justify-content:flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="site-bg" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="wordmark">Srinidhi</a>
+    <ul class="nav-links">
+      <li><a href="index.html#case-studies">Case Studies</a></li>
+      <li><a href="work-ex.html" class="active">Work Ex</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-head">
+  <p class="section-eyebrow">Field notes — now back to origin</p>
+  <h1 class="page-title">Work experience</h1>
+  <p class="page-sub">Most recent first, tracing back to where the spatial way of thinking started.</p>
+</div>
+
+<section class="route-section">
+  <div class="wrap">
+    <div class="route" id="route">
+      <svg class="route-svg" id="routeSvg">
+        <path class="path-bg" id="pathBg"></path>
+        <path class="path-fg" id="pathFg"></path>
+      </svg>
+
+      <div class="stop left" data-order="0">
+        <div class="pin-col"><div class="pin"></div></div>
+        <div class="stop-card">
+          <span class="ref">NOW · CURRENT</span>
+          <h3 class="stop-title">[Your role], Siemens</h3>
+          <p class="stop-place">[City] · Apr 2023–present</p>
+          <p class="stop-desc">[One or two lines on what you actually do day to day, and how the structured / spatial way of thinking shows up in the work.]</p>
+          <div class="tags"><span class="tag">UX design</span><span class="tag">ongoing</span></div>
+        </div>
+      </div>
+
+      <div class="stop right" data-order="1">
+        <div class="pin-col"><div class="pin"></div></div>
+        <div class="stop-card">
+          <span class="ref">CERTIFICATION</span>
+          <h3 class="stop-title">UX Career Accelerator Programme</h3>
+          <p class="stop-place">Nov 2022 – Jul 2023</p>
+          <p class="stop-desc">The bridge — an intensive UX training programme that marked the shift from geoinformatics into design.</p>
+          <div class="tags"><span class="tag">UX fundamentals</span><span class="tag">career switch</span></div>
+        </div>
+      </div>
+
+      <div class="stop left origin" data-order="2">
+        <div class="pin-col"><div class="pin"></div></div>
+        <div class="stop-card">
+          <span class="ref">ORIGIN</span>
+          <h3 class="stop-title">Undergrad, Geoinformatics</h3>
+          <p class="stop-place">[University, City] · [Years]</p>
+          <p class="stop-desc">Where it all starts — reading terrain, layering data, seeing systems as maps. Everything above traces back here.</p>
+          <div class="tags"><span class="tag">GIS</span><span class="tag">remote sensing</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Say hi — <a href="contact.html">Contact</a> · <a href="#">LinkedIn</a> · <a href="#">Medium</a>
+  </div>
+</footer>
+
+<script>
+  const route = document.getElementById('route');
+  const routeSvg = document.getElementById('routeSvg');
+  const pathBg = document.getElementById('pathBg');
+  const pathFg = document.getElementById('pathFg');
+  const stops = Array.from(document.querySelectorAll('.stop'));
+  let totalLen = 0;
+  const cumulative = [];
+
+  function buildPath(){
+    const routeRect = route.getBoundingClientRect();
+    const w = route.offsetWidth;
+    const h = route.offsetHeight;
+    routeSvg.setAttribute('width', w);
+    routeSvg.setAttribute('height', h);
+    routeSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+    const points = stops.map(s=>{
+      const pin = s.querySelector('.pin');
+      const r = pin.getBoundingClientRect();
+      return { x: r.left + r.width/2 - routeRect.left, y: r.top + r.height/2 - routeRect.top };
+    });
+
+    const amp = w < 620 ? 0 : 46;
+    const isLastSegment = (i) => i === points.length - 1;
+
+    let d = `M ${points[0].x} ${points[0].y}`;
+    for(let i=1;i<points.length;i++){
+      const p0 = points[i-1], p1 = points[i];
+      const dir = i % 2 === 0 ? 1 : -1;
+      const segAmp = isLastSegment(i) ? 0 : amp;
+      const cx = p0.x + segAmp*dir;
+      const c1y = p0.y + (p1.y-p0.y)*0.28;
+      const c2y = p0.y + (p1.y-p0.y)*0.72;
+      d += ` C ${cx} ${c1y}, ${p1.x} ${c2y}, ${p1.x} ${p1.y}`;
+    }
+    pathBg.setAttribute('d', d);
+    pathFg.setAttribute('d', d);
+    totalLen = pathFg.getTotalLength();
+    pathFg.style.strokeDasharray = totalLen;
+    pathFg.style.strokeDashoffset = totalLen;
+
+    cumulative.length = 0;
+    let acc = 0;
+    cumulative.push(0);
+    for(let i=1;i<points.length;i++){
+      const seg = document.createElementNS('http://www.w3.org/2000/svg','path');
+      const dir = i % 2 === 0 ? 1 : -1;
+      const segAmp = isLastSegment(i) ? 0 : amp;
+      const cx = points[i-1].x + segAmp*dir;
+      const c1y = points[i-1].y + (points[i].y-points[i-1].y)*0.28;
+      const c2y = points[i-1].y + (points[i].y-points[i-1].y)*0.72;
+      seg.setAttribute('d', `M ${points[i-1].x} ${points[i-1].y} C ${cx} ${c1y}, ${points[i].x} ${c2y}, ${points[i].x} ${points[i].y}`);
+      acc += seg.getTotalLength();
+      cumulative.push(acc);
+    }
+    reapplyVisibleState();
+  }
+
+  function reapplyVisibleState(){
+    let maxOrder = -1;
+    stops.forEach(s=>{ if(s.classList.contains('visible')) maxOrder = Math.max(maxOrder, +s.dataset.order); });
+    if(maxOrder >= 0) revealTo(maxOrder);
+  }
+  function revealTo(order){
+    const len = cumulative[order+1] !== undefined ? cumulative[order+1] : totalLen;
+    pathFg.style.strokeDashoffset = totalLen - len;
+  }
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        revealTo(+entry.target.dataset.order);
+      }
+    });
+  },{ threshold:0.4 });
+  stops.forEach(s=>io.observe(s));
+
+  window.addEventListener('load', buildPath);
+  let resizeT;
+  window.addEventListener('resize', ()=>{ clearTimeout(resizeT); resizeT = setTimeout(buildPath, 150); });
+  buildPath();
+</script>
+</body>
+</html>
